@@ -43,7 +43,7 @@ def _set_pose(pose, x, y, z):
     pose.pose.position.x = x
     pose.pose.position.y = y
     pose.pose.position.z = z
-    pose.header = mavros.setpoint.Header(
+    pose.header = m_set_poseavros.setpoint.Header(
         frame_id="att_pose",
         stamp=rospy.Time.now())
 
@@ -123,9 +123,9 @@ def main():
         # Initialization: make the drone fly and stabilize at 5 meters.
         duration = current_time.secs - init_time.secs
         if (duration < 5):
-            setpoint_msg.pose.position.z = 5
+            setpoint_msg.pose.position.z = 2.5
         else:
-            setpoint_msg.pose.position.z = 0
+            setpoint_msg.pose.position.z = 2.5
 
         # setpoint_msg.pose.position.z = 3 + 2*math.sin(rospy.get_time() * 0.2)
         setpoint_local_pub.publish(setpoint_msg)
