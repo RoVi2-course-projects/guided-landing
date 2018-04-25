@@ -25,6 +25,7 @@ class PIDImpl
         double _integral;
 };
 
+PID::PID(){}
 
 PID::PID( double dt, double max, double min, double Kp, double Kd, double Ki )
 {
@@ -34,7 +35,12 @@ double PID::calculate( double setpoint, double pv )
 {
     return pimpl->calculate(setpoint,pv);
 }
-PID::~PID() 
+void PID::init(double dt, double max, double min, double Kp, double Kd,
+               double Ki ){
+           pimpl = new PIDImpl(dt,max,min,Kp,Kd,Ki);
+          }
+
+PID::~PID()
 {
     delete pimpl;
 }
@@ -57,7 +63,7 @@ PIDImpl::PIDImpl( double dt, double max, double min, double Kp, double Kd, doubl
 
 double PIDImpl::calculate( double setpoint, double pv )
 {
-    
+
     // Calculate error
     double error = setpoint - pv;
 
